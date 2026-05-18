@@ -1,0 +1,10 @@
+# Global uv config — applies to every uv invocation on this machine
+# unless overridden by a project's pyproject.toml [tool.uv] or uv.toml.
+# Note: no [tool.uv] heading here — settings are top-level in a standalone uv.toml.
+
+# Resolve as if packages newer than this window didn't exist.
+# Guards against surprise breakage from same-day releases.
+exclude-newer = "2 days"
+
+# Per-package overrides (setuptools churns fast; give it a longer settle window).
+exclude-newer-package = { setuptools = "7 days" }

@@ -1,0 +1,21 @@
+# Never commit anything that looks like secrets
+.secrets
+*.secret
+*.secrets
+.env
+.env.*
+*credentials*
+*_token*
+*_key*
+*.pem
+*.key
+
+# OS junk
+.DS_Store
+
+# Editor junk
+*.swp
+*~
+
+# Backup files left by install.sh's link() helper
+*.backup.*
