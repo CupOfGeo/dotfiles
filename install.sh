@@ -93,7 +93,6 @@ link "$DOTFILES/tmux/tmux.conf"  "$HOME/.tmux.conf"
 link "$DOTFILES/zsh/zshrc"       "$HOME/.zshrc"
 link "$DOTFILES/zsh/p10k.zsh"    "$HOME/.p10k.zsh"
 link "$DOTFILES/python/uv.toml"  "$HOME/.config/uv/uv.toml"
-link "$DOTFILES/ghostty/config"  "$HOME/.config/ghostty/config"
 link "$DOTFILES/nvim"            "$HOME/.config/nvim"
 
 echo ""
