@@ -1,5 +1,5 @@
 source ~/scripts/.secrets
-source ~/scripts/.alias
+source $HOME/dotfiles/zsh/aliases.sh
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -129,3 +129,4 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 source ~/scripts/media-hook.sh
+export ENABLE_LSP_TOOL=1
