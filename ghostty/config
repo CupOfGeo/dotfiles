@@ -6,9 +6,9 @@
 # global: prefix is required for the binding to fire when Ghostty isn't focused.
 # First use will prompt for the macOS accessibility permission.
 keybind = global:cmd+grave_accent=toggle_quick_terminal
-quick-terminal-position = bottom
+quick-terminal-position = top
 quick-terminal-animation-duration = 0.15
-quick-terminal-screen = main
+quick-terminal-screen = macos-menu-bar
 
 
 background-opacity = 0.90
