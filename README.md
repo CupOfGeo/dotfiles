@@ -18,6 +18,9 @@ Then open tmux and press `prefix + I` to fetch plugins via TPM.
 - `install.sh` — bootstrap: brew, TPM, oh-my-zsh, p10k, nvm, symlinks
 - `tmux/` — tmux config
 - `zsh/`  — zshrc + powerlevel10k config
+- `nvim/` — NvChad-based neovim config
+- `python/` — uv config + Python versions to install
+- `iterm/` — iTerm2 prefs (install.sh points iTerm at this folder; iTerm reads/writes the plist here)
 
 ## Adding a new tool
 

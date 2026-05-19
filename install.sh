@@ -95,6 +95,11 @@ link "$DOTFILES/zsh/p10k.zsh"    "$HOME/.p10k.zsh"
 link "$DOTFILES/python/uv.toml"  "$HOME/.config/uv/uv.toml"
 link "$DOTFILES/nvim"            "$HOME/.config/nvim"
 
+# 8. Point iTerm2 at the dotfiles prefs folder (no symlink — iTerm reads it directly).
+echo "==> Configuring iTerm2 to load prefs from dotfiles"
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$DOTFILES/iterm"
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+
 echo ""
 echo "Done."
 echo "  - Inside tmux, press: prefix + I  to install plugins."
