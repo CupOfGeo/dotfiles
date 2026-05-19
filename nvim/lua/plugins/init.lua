@@ -19,6 +19,7 @@ return {
         "html", "css", "javascript", "typescript", "tsx",
         "markdown", "markdown_inline",
         "python", "bash",
+        "json", "yaml", "toml",
       },
     },
   },
@@ -39,6 +40,9 @@ return {
           "pyright",
           "ruff",
           "shfmt",
+          "json-lsp",
+          "yaml-language-server",
+          "taplo",
         },
         run_on_start = true,
       }

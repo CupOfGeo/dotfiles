@@ -115,8 +115,6 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export MODULAR_HOME="$HOME/.modular"
-export PATH="$HOME/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -126,7 +124,7 @@ export NVM_DIR="$HOME/.nvm"
 . "$HOME/.local/bin/env"
 export PATH="$HOME/.pixi/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+# export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"  # moved to remote dev DB on homeserver
 
 source ~/scripts/media-hook.sh
 export ENABLE_LSP_TOOL=1
