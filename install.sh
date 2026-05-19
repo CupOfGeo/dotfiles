@@ -93,6 +93,7 @@ link "$DOTFILES/tmux/tmux.conf"  "$HOME/.tmux.conf"
 link "$DOTFILES/zsh/zshrc"       "$HOME/.zshrc"
 link "$DOTFILES/zsh/p10k.zsh"    "$HOME/.p10k.zsh"
 link "$DOTFILES/python/uv.toml"  "$HOME/.config/uv/uv.toml"
+link "$DOTFILES/npm/npmrc"       "$HOME/.npmrc"
 link "$DOTFILES/nvim"            "$HOME/.config/nvim"
 
 # 8. Point iTerm2 at the dotfiles prefs folder (no symlink — iTerm reads it directly).
