@@ -21,6 +21,7 @@ Then open tmux and press `prefix + I` to fetch plugins via TPM.
 - `nvim/` — NvChad-based neovim config
 - `python/` — uv config + Python versions to install
 - `iterm/` — iTerm2 prefs (install.sh points iTerm at this folder; iTerm reads/writes the plist here)
+- `vscode/` — settings, keybindings, and an `extensions.txt` list installed via the `code` CLI
 
 ## Adding a new tool
 

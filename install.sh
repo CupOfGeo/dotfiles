@@ -96,7 +96,24 @@ link "$DOTFILES/python/uv.toml"  "$HOME/.config/uv/uv.toml"
 link "$DOTFILES/npm/npmrc"       "$HOME/.npmrc"
 link "$DOTFILES/nvim"            "$HOME/.config/nvim"
 
-# 8. Point iTerm2 at the dotfiles prefs folder (no symlink — iTerm reads it directly).
+VSCODE_USER="$HOME/Library/Application Support/Code/User"
+link "$DOTFILES/vscode/settings.json"    "$VSCODE_USER/settings.json"
+link "$DOTFILES/vscode/keybindings.json" "$VSCODE_USER/keybindings.json"
+
+# 8. VSCode extensions
+if command -v code >/dev/null 2>&1 && [ -f "$DOTFILES/vscode/extensions.txt" ]; then
+  echo "==> Installing VSCode extensions"
+  while IFS= read -r ext; do
+    [ -z "$ext" ] && continue
+    case "$ext" in \#*) continue ;; esac
+    code --install-extension "$ext" --force >/dev/null
+    echo "    installed $ext"
+  done < "$DOTFILES/vscode/extensions.txt"
+else
+  echo "==> Skipping VSCode extensions (no 'code' CLI on PATH)"
+fi
+
+# 9. Point iTerm2 at the dotfiles prefs folder (no symlink — iTerm reads it directly).
 echo "==> Configuring iTerm2 to load prefs from dotfiles"
 defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$DOTFILES/iterm"
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
