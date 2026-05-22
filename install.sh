@@ -2,129 +2,86 @@
 set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DOTFILES/lib/common.sh"
 
-echo "==> Bootstrapping dotfiles from $DOTFILES"
+ALL_MODULES=(claude zsh tmux nvim python npm iterm vscode)
 
-# 1. Homebrew
-if ! command -v brew >/dev/null 2>&1; then
-  echo "==> Installing Homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
+usage() {
+  cat <<EOF
+Usage: $0 [--list] [--help] [MODULE...]
 
-# 2. Brewfile packages
-echo "==> Installing Brewfile packages"
-brew bundle --file="$DOTFILES/Brewfile"
+With no arguments, installs every module in canonical order plus the shared
+prerequisites (Homebrew, nvm + Node LTS).
 
-# 3. TPM (tmux plugin manager)
-TPM_DIR="$HOME/.tmux/plugins/tpm"
-if [ ! -d "$TPM_DIR" ]; then
-  echo "==> Cloning TPM"
-  git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
-else
-  echo "==> TPM already installed"
-fi
+Pass module names to install only a subset, e.g.:
+  $0 tmux zsh
 
-# 4. oh-my-zsh + custom theme/plugins
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "==> Installing oh-my-zsh"
-  RUNZSH=no KEEP_ZSHRC=yes \
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-else
-  echo "==> oh-my-zsh already installed"
-fi
+To install a single module standalone (without the shared bootstrap), run
+its installer directly:
+  cd <module> && ./install.sh
 
-ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-
-P10K_DIR="$ZSH_CUSTOM/themes/powerlevel10k"
-if [ ! -d "$P10K_DIR" ]; then
-  echo "==> Cloning powerlevel10k"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_DIR"
-fi
-
-AUTOSUG_DIR="$ZSH_CUSTOM/plugins/zsh-autosuggestions"
-if [ ! -d "$AUTOSUG_DIR" ]; then
-  echo "==> Cloning zsh-autosuggestions"
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$AUTOSUG_DIR"
-fi
-
-# 5. nvm (Node version manager)
-if [ ! -d "$HOME/.nvm" ]; then
-  echo "==> Installing nvm"
-  curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | PROFILE=/dev/null bash
-else
-  echo "==> nvm already installed"
-fi
-
-# 6. uv (Python version + project manager) + Python versions
-if ! command -v uv >/dev/null 2>&1; then
-  echo "==> Installing uv"
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-  # Make uv available for the rest of this script
-  export PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [ -f "$DOTFILES/python/versions.txt" ]; then
-  echo "==> Installing Python versions via uv"
-  while IFS= read -r version; do
-    [ -z "$version" ] && continue
-    case "$version" in \#*) continue ;; esac
-    uv python install "$version"
-  done < "$DOTFILES/python/versions.txt"
-fi
-
-# 7. Symlink configs
-link() {
-  local src="$1" dest="$2"
-  mkdir -p "$(dirname "$dest")"
-  if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-    echo "    ok  $dest"
-    return
-  fi
-  if [ -e "$dest" ] || [ -L "$dest" ]; then
-    mv "$dest" "$dest.backup.$(date +%s)"
-    echo "    backed up existing $dest"
-  fi
-  ln -s "$src" "$dest"
-  echo "    linked $dest -> $src"
+Available modules:
+  ${ALL_MODULES[*]}
+EOF
 }
 
-echo "==> Linking configs"
-link "$DOTFILES/tmux/tmux.conf"  "$HOME/.tmux.conf"
-link "$DOTFILES/zsh/zshrc"       "$HOME/.zshrc"
-link "$DOTFILES/zsh/p10k.zsh"    "$HOME/.p10k.zsh"
-link "$DOTFILES/python/uv.toml"  "$HOME/.config/uv/uv.toml"
-link "$DOTFILES/npm/npmrc"       "$HOME/.npmrc"
-link "$DOTFILES/nvim"            "$HOME/.config/nvim"
+case "${1:-}" in
+  --help|-h) usage; exit 0 ;;
+  --list)    printf '%s\n' "${ALL_MODULES[@]}"; exit 0 ;;
+esac
 
-VSCODE_USER="$HOME/Library/Application Support/Code/User"
-link "$DOTFILES/vscode/settings.json"    "$VSCODE_USER/settings.json"
-link "$DOTFILES/vscode/keybindings.json" "$VSCODE_USER/keybindings.json"
-
-link "$DOTFILES/claude/settings.json" "$HOME/.claude/settings.json"
-link "$DOTFILES/claude/.mcp.json"     "$HOME/.claude/.mcp.json"
-link "$DOTFILES/claude/CLAUDE.md"     "$HOME/.claude/CLAUDE.md"
-link "$DOTFILES/claude/LSP.md"        "$HOME/.claude/LSP.md"
-link "$DOTFILES/claude/RTK.md"        "$HOME/.claude/RTK.md"
-
-# 8. VSCode extensions
-if command -v code >/dev/null 2>&1 && [ -f "$DOTFILES/vscode/extensions.txt" ]; then
-  echo "==> Installing VSCode extensions"
-  while IFS= read -r ext; do
-    [ -z "$ext" ] && continue
-    case "$ext" in \#*) continue ;; esac
-    code --install-extension "$ext" --force >/dev/null
-    echo "    installed $ext"
-  done < "$DOTFILES/vscode/extensions.txt"
+if [[ $# -eq 0 ]]; then
+  selected=("${ALL_MODULES[@]}")
 else
-  echo "==> Skipping VSCode extensions (no 'code' CLI on PATH)"
+  selected=("$@")
+  for m in "${selected[@]}"; do
+    found=0
+    for known in "${ALL_MODULES[@]}"; do
+      [[ "$m" == "$known" ]] && found=1 && break
+    done
+    if [[ $found -eq 0 ]]; then
+      log_warn "Unknown module: $m"
+      log_warn "Available: ${ALL_MODULES[*]}"
+      exit 1
+    fi
+  done
 fi
 
-# 9. Point iTerm2 at the dotfiles prefs folder (no symlink — iTerm reads it directly).
-echo "==> Configuring iTerm2 to load prefs from dotfiles"
-defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$DOTFILES/iterm"
-defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+log_step "Bootstrapping dotfiles from $DOTFILES"
+log_step "Modules: ${selected[*]}"
 
-echo ""
-echo "Done."
+# Shared prerequisites used across multiple modules.
+ensure_brew
+
+if [[ ! -d "$HOME/.nvm" ]]; then
+  log_step "Installing nvm"
+  curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | PROFILE=/dev/null bash
+else
+  log_ok "nvm already installed"
+fi
+
+# Ensure a Node binary is available (claude .mcp.json calls `npx`).
+export NVM_DIR="$HOME/.nvm"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  # shellcheck disable=SC1091
+  source "$NVM_DIR/nvm.sh"
+  if ! command -v node >/dev/null 2>&1; then
+    log_step "Installing Node LTS via nvm"
+    nvm install --lts
+  else
+    log_ok "node already installed"
+  fi
+fi
+
+for m in "${selected[@]}"; do
+  script="$DOTFILES/$m/install.sh"
+  if [[ ! -x "$script" ]]; then
+    log_warn "No installer for module '$m' at $script — skipping."
+    continue
+  fi
+  "$script"
+done
+
+log_step "Done."
 echo "  - Inside tmux, press: prefix + I  to install plugins."
 echo "  - Open a new shell to pick up the new .zshrc."

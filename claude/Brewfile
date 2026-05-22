@@ -1,0 +1,6 @@
+# Required by hooks in claude/settings.json.
+brew "rtk"
+brew "nowplaying-cli"
+
+# Go language server. Uncomment if you also enable gopls-lsp in install.sh.
+# brew "gopls"

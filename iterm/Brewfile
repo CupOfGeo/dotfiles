@@ -1,0 +1,5 @@
+cask "iterm2"
+
+# Powerline-compatible font for tmux-powerline + p10k glyphs.
+# Set the terminal to use "MesloLGS Nerd Font" after install.
+cask "font-meslo-lg-nerd-font"
