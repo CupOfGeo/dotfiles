@@ -126,5 +126,5 @@ export PATH="$HOME/.pixi/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 # export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"  # moved to remote dev DB on homeserver
 
-source ~/scripts/media-hook.sh
+source ~/dotfiles/claude/media-hook.sh
 export ENABLE_LSP_TOOL=1
