@@ -22,6 +22,7 @@ Then open tmux and press `prefix + I` to fetch plugins via TPM.
 - `python/` — uv config + Python versions to install
 - `iterm/` — iTerm2 prefs (install.sh points iTerm at this folder; iTerm reads/writes the plist here)
 - `vscode/` — settings, keybindings, and an `extensions.txt` list installed via the `code` CLI
+- `claude/` — Claude Code global config (`settings.json`, `.mcp.json`, `CLAUDE.md`, `LSP.md`, `RTK.md`). The `enabledPlugins` list in `settings.json` only toggles plugins on — re-register each marketplace with `/plugin marketplace add ...` inside Claude Code on a fresh machine before they activate.
 
 ## Adding a new tool
 

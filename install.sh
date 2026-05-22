@@ -100,6 +100,12 @@ VSCODE_USER="$HOME/Library/Application Support/Code/User"
 link "$DOTFILES/vscode/settings.json"    "$VSCODE_USER/settings.json"
 link "$DOTFILES/vscode/keybindings.json" "$VSCODE_USER/keybindings.json"
 
+link "$DOTFILES/claude/settings.json" "$HOME/.claude/settings.json"
+link "$DOTFILES/claude/.mcp.json"     "$HOME/.claude/.mcp.json"
+link "$DOTFILES/claude/CLAUDE.md"     "$HOME/.claude/CLAUDE.md"
+link "$DOTFILES/claude/LSP.md"        "$HOME/.claude/LSP.md"
+link "$DOTFILES/claude/RTK.md"        "$HOME/.claude/RTK.md"
+
 # 8. VSCode extensions
 if command -v code >/dev/null 2>&1 && [ -f "$DOTFILES/vscode/extensions.txt" ]; then
   echo "==> Installing VSCode extensions"

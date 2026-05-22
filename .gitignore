@@ -19,3 +19,6 @@
 
 # Backup files left by install.sh's link() helper
 *.backup.*
+
+# Machine-local Claude Code overrides
+claude/settings.local.json
