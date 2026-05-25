@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+log()  { printf '==> %s\n' "$*"; }
+warn() { printf 'WARN: %s\n' "$*" >&2; }
+die()  { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
+
+usage() {
+  cat <<EOF
+Usage: tarproj [-o OUT_DIR] [-f] <path-to-folder>
+
+Create a clean .tar.gz of <folder>, skipping common junk
+(.git, venv, __pycache__, node_modules, build artefacts, etc.).
+The archive is named <basename>.tar.gz.
+
+Options:
+  -o OUT_DIR   Write the archive into OUT_DIR (default: current directory).
+  -f           Overwrite an existing archive.
+  -h, --help   Show this help.
+EOF
+}
+
+OUT_DIR="$PWD"
+FORCE=0
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help) usage; exit 0 ;;
+    -o)        [[ $# -ge 2 ]] || die "-o requires a directory"
+               OUT_DIR="$2"; shift 2 ;;
+    -f)        FORCE=1; shift ;;
+    --)        shift; break ;;
+    -*)        die "unknown option: $1" ;;
+    *)         break ;;
+  esac
+done
+
+[[ $# -ge 1 ]] || { usage >&2; exit 1; }
+[[ $# -le 1 ]] || die "expected exactly one folder argument; got: $*"
+
+TARGET="$1"
+[[ -d "$TARGET" ]] || die "not a directory: $TARGET"
+[[ -d "$OUT_DIR" ]] || die "output directory does not exist: $OUT_DIR"
+
+# Resolve to an absolute, symlink-free path so basename/dirname behave
+# even for inputs like "." or "./foo/".
+TARGET_ABS="$(cd "$TARGET" && pwd -P)"
+PARENT="$(dirname "$TARGET_ABS")"
+NAME="$(basename "$TARGET_ABS")"
+
+[[ "$NAME" != "/" && "$NAME" != "." && "$NAME" != ".." ]] \
+  || die "refusing to archive '$NAME' — give a real project directory"
+
+OUT_DIR_ABS="$(cd "$OUT_DIR" && pwd -P)"
+OUT="$OUT_DIR_ABS/$NAME.tar.gz"
+
+if [[ -e "$OUT" && "$FORCE" -ne 1 ]]; then
+  die "$OUT already exists (use -f to overwrite)"
+fi
+
+# bsdtar/gnutar both treat these patterns as path-component globs,
+# so "__pycache__" matches at any depth.
+EXCLUDES=(
+  # VCS
+  --exclude='.git'
+  --exclude='.svn'
+  --exclude='.hg'
+  # Python
+  --exclude='__pycache__'
+  --exclude='*.pyc'
+  --exclude='.venv'
+  --exclude='venv'
+  --exclude='.mypy_cache'
+  --exclude='.pytest_cache'
+  --exclude='.ruff_cache'
+  --exclude='.tox'
+  --exclude='*.egg-info'
+  # Node
+  --exclude='node_modules'
+  --exclude='.next'
+  --exclude='.turbo'
+  # Rust / Go
+  --exclude='target'
+  # Build / dist
+  --exclude='dist'
+  --exclude='build'
+  --exclude='out'
+  --exclude='.cache'
+  # Editor / OS
+  --exclude='.DS_Store'
+  --exclude='.idea'
+  # Logs
+  --exclude='*.log'
+)
+
+log "archiving $TARGET_ABS -> $OUT"
+cd "$PARENT"
+tar -czf "$OUT" "${EXCLUDES[@]}" "$NAME"
+
+SIZE="$(du -h "$OUT" | awk '{print $1}')"
+log "done ($SIZE)"
