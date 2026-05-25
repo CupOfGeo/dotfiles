@@ -4,6 +4,10 @@ Personal config + setup scripts, organized as independent modules.
 
 ## Install on a fresh machine
 
+> **The repo must live at `~/dotfiles`.** Several files (notably `zsh/zshrc`
+> and the `claude/media-hook.sh` source line it appends) reference this
+> absolute path. Cloning anywhere else will leave broken sources.
+
 ```bash
 git clone <this-repo> ~/dotfiles
 cd ~/dotfiles

@@ -16,7 +16,20 @@ link "$MODULE_DIR/LSP.md"        "$HOME/.claude/LSP.md"
 link "$MODULE_DIR/RTK.md"        "$HOME/.claude/RTK.md"
 
 # media-hook.sh is intentionally NOT symlinked. zshrc sources it directly
-# from the dotfiles path.
+# from the dotfiles path. When installing this module standalone (without
+# the zsh module's zshrc), ensure ~/.zshrc has the source line.
+ZSHRC="$HOME/.zshrc"
+MEDIA_HOOK_LINE='[[ -r ~/dotfiles/claude/media-hook.sh ]] && source ~/dotfiles/claude/media-hook.sh'
+if [[ -f "$ZSHRC" ]]; then
+  if grep -Fq 'dotfiles/claude/media-hook.sh' "$ZSHRC"; then
+    log_ok "media-hook source line already in $ZSHRC"
+  else
+    printf '\n%s\n' "$MEDIA_HOOK_LINE" >> "$ZSHRC"
+    log_ok "appended media-hook source line to $ZSHRC"
+  fi
+else
+  log_warn "$ZSHRC not found — skipping media-hook source line"
+fi
 
 # Global npm-installed LSP servers (Node provided by the top-level installer).
 if command -v npm >/dev/null 2>&1; then

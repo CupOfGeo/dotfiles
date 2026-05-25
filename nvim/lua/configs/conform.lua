@@ -7,6 +7,7 @@ local options = {
     html = { "prettier" },
     sh = { "shfmt" },
     python = { "ruff_format" },
+    json = {"jq"},
   },
 
   default_format_opts = {

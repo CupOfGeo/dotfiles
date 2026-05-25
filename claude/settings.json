@@ -68,6 +68,17 @@
           }
         ]
       }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f ~/.claude/no-media ] || { jq -e '.is_interrupt == true' >/dev/null 2>&1 && nowplaying-cli pause; }; exit 0"
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
