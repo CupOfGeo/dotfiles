@@ -45,10 +45,15 @@ fi
 
 # Claude Code LSP plugins.
 if command -v claude >/dev/null 2>&1; then
-  log_step "Updating claude-plugins-official marketplace + installing LSP plugins"
-  claude plugin marketplace update claude-plugins-official
+  log_step "Ensuring claude-plugins-official marketplace + installing LSP plugins"
+  if ! claude plugin marketplace list 2>/dev/null | grep -q 'claude-plugins-official'; then
+    claude plugin marketplace add anthropics/claude-plugins-official
+  else
+    claude plugin marketplace update claude-plugins-official
+  fi
   claude plugin install pyright-lsp
   claude plugin install typescript-lsp
+  claude plugin install jdtls-lsp@claude-plugins-official
   # Uncomment for Go support (also uncomment `brew "gopls"` in claude/Brewfile).
   # claude plugin install gopls-lsp
 else
