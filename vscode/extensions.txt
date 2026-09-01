@@ -1,9 +1,10 @@
-# Essential / universal VSCode extensions.
+# VSCode extensions.
 # One extension ID per line. Lines starting with # are ignored.
 # Install via: code --install-extension <id>
 
-# Icon theme
+# Icon / color theme
 pkief.material-icon-theme
+zhuangtongfa.material-theme
 
 # Spell checking
 streetsidesoftware.code-spell-checker
@@ -16,3 +17,47 @@ bierner.markdown-footnotes
 bierner.markdown-mermaid
 bierner.markdown-preview-github-styles
 bierner.markdown-yaml-preamble
+
+# Python
+ms-python.python
+ms-python.vscode-pylance
+ms-python.debugpy
+ms-python.vscode-python-envs
+
+# Rust
+rust-lang.rust-analyzer
+dustypomerleau.rust-syntax
+vadimcn.vscode-lldb
+fill-labs.dependi
+
+# Go
+golang.go
+
+# Docker
+docker.docker
+ms-azuretools.vscode-containers
+
+# Git / GitHub
+eamodio.gitlens
+mhutchie.git-graph
+mattlott.copy-github-url
+github.vscode-pull-request-github
+github.vscode-github-actions
+
+# Linting / formatting
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+inferrinizzard.prettier-sql-vscode
+redhat.vscode-yaml
+tamasfe.even-better-toml
+
+# Misc language / file support
+mechatroner.rainbow-csv
+samuelcolvin.jinjahtml
+george-alisson.html-preview-vscode
+
+# Testing
+ms-playwright.playwright
+
+# Integrations
+anthropic.claude-code

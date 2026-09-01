@@ -10,10 +10,25 @@ log_step "Installing claude module"
 brew_bundle_if_present "$MODULE_DIR"
 
 link "$MODULE_DIR/settings.json" "$HOME/.claude/settings.json"
-link "$MODULE_DIR/.mcp.json"     "$HOME/.claude/.mcp.json"
 link "$MODULE_DIR/CLAUDE.md"     "$HOME/.claude/CLAUDE.md"
 link "$MODULE_DIR/LSP.md"        "$HOME/.claude/LSP.md"
 link "$MODULE_DIR/RTK.md"        "$HOME/.claude/RTK.md"
+
+# Personal skills (on-demand, not loaded every session).
+link "$MODULE_DIR/skills/slack"  "$HOME/.claude/skills/slack"
+
+# MCP servers are registered via `claude mcp add -s user`, not a symlinked
+# .mcp.json — Claude Code only reads .mcp.json from a project's cwd (project
+# scope); user-scope servers live in ~/.claude.json, which this writes to.
+if command -v claude >/dev/null 2>&1; then
+  log_step "Registering user-scope MCP servers"
+  if claude mcp list 2>/dev/null | grep -q '^context7:'; then
+    log_ok "context7 MCP server already registered"
+  else
+    claude mcp add -s user context7 -- npx -y @upstash/context7-mcp
+    log_ok "registered context7 MCP server (user scope)"
+  fi
+fi
 
 # media-hook.sh is intentionally NOT symlinked. zshrc sources it directly
 # from the dotfiles path. When installing this module standalone (without
@@ -53,7 +68,6 @@ if command -v claude >/dev/null 2>&1; then
   fi
   claude plugin install pyright-lsp
   claude plugin install typescript-lsp
-  claude plugin install jdtls-lsp@claude-plugins-official
   # Uncomment for Go support (also uncomment `brew "gopls"` in claude/Brewfile).
   # claude plugin install gopls-lsp
 else

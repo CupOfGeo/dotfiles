@@ -1,5 +1,9 @@
-source ~/scripts/.secrets
+# machine-local secrets, not tracked in dotfiles
+[ -f ~/scripts/.secrets ] && source ~/scripts/.secrets
 source $HOME/dotfiles/zsh/aliases.sh
+
+# Auto-color each iTerm2 tab (runs before p10k instant prompt).
+[[ -r ~/dotfiles/iterm/tab-color.sh ]] && source ~/dotfiles/iterm/tab-color.sh
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
