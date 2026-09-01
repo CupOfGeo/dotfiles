@@ -8,6 +8,8 @@ source "$DOTFILES/lib/common.sh"
 require_macos
 log_step "Installing vscode module"
 
+brew_bundle_if_present "$MODULE_DIR"
+
 VSCODE_USER="$HOME/Library/Application Support/Code/User"
 link "$MODULE_DIR/settings.json"    "$VSCODE_USER/settings.json"
 link "$MODULE_DIR/keybindings.json" "$VSCODE_USER/keybindings.json"
@@ -17,7 +19,7 @@ if command -v code >/dev/null 2>&1 && [[ -f "$MODULE_DIR/extensions.txt" ]]; the
   while IFS= read -r ext; do
     [[ -z "$ext" ]] && continue
     case "$ext" in \#*) continue ;; esac
-    code --install-extension "$ext" --force >/dev/null
+    NODE_NO_WARNINGS=1 code --install-extension "$ext" --force >/dev/null
     log_ok "installed $ext"
   done < "$MODULE_DIR/extensions.txt"
 else

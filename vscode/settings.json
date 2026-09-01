@@ -1,35 +1,90 @@
 {
-    "telemetry.telemetryLevel": "crash",
-    "redhat.telemetry.enabled": false,
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.startupEditor": "none",
-    "files.autoSave": "afterDelay",
-    "diffEditor.renderSideBySide": false,
-    "diffEditor.ignoreTrimWhitespace": false,
-    "cSpell.userWords": [
-        "aiohttp",
-        "anyio",
-        "asyncpg",
-        "autoscale",
-        "cloudsql",
-        "dbsession",
-        "devcontainers",
-        "dotenv",
-        "fastapi",
-        "gcloud",
-        "gserviceaccount",
-        "httpx",
-        "jdbc",
-        "kubeseal",
-        "langchain",
-        "psql",
-        "pydub",
-        "sessionmaker",
-        "sqlalchemy",
-        "starlette",
-        "uvicorn",
-        "VARCHAR",
-        "venv",
-        "yarl"
-    ]
+  // Editor / workbench
+  "workbench.colorTheme": "One Dark Pro Night Flat",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "none",
+  "files.autoSave": "afterDelay",
+  "files.trimTrailingWhitespaceInRegexAndStrings": false,
+  "diffEditor.renderSideBySide": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "inlineChat.enableV2": true,
+  "inlineChat.affordance": "editor",
+  "application.shellEnvironmentResolutionTimeout": 100,
+  "terminal.integrated.mouseWheelScrollSensitivity": 3,
+  "terminal.integrated.gpuAcceleration": "off",
+  "telemetry.telemetryLevel": "crash",
+
+  "redhat.telemetry.enabled": false,
+
+  // JavaScript / HTML
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // Go
+  "go.toolsManagement.autoUpdate": true,
+
+  // Docker
+  "docker.extension.enableComposeLanguageServer": false,
+
+  // YAML
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml"
+  ],
+
+  // Integrations (Copilot, GitLens, GitHub, Remote, Claude Code)
+  "github.copilot.chat.agent.thinkingTool": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "githubPullRequests.pullBranch": "never",
+  "chat.viewSessions.orientation": "stacked",
+  "remote.defaultExtensionsIfInstalledLocally": [
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+    "GitHub.vscode-pull-request-github"
+  ],
+  "claudeCode.preferredLocation": "panel",
+
+  // Spell-check dictionary
+  "cSpell.userWords": [
+    "abstractmethod",
+    "aiohttp",
+    "anyio",
+    "asyncio",
+    "asyncpg",
+    "autoscale",
+    "cloudsql",
+    "dataclass",
+    "dataclasses",
+    "dbsession",
+    "devcontainers",
+    "dotenv",
+    "elif",
+    "fastapi",
+    "gcloud",
+    "gserviceaccount",
+    "httpx",
+    "isinstance",
+    "kubeseal",
+    "langchain",
+    "psql",
+    "pydub",
+    "pyproject",
+    "pytest",
+    "sessionmaker",
+    "sqlalchemy",
+    "starlette",
+    "structlog",
+    "uvicorn",
+    "VARCHAR",
+    "venv",
+    "yarl"
+  ]
 }

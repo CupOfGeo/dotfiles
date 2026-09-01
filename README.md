@@ -34,14 +34,17 @@ The top-level installer bootstraps shared prerequisites (Homebrew, nvm + Node LT
 
 - `install.sh` — orchestrator: shared bootstrap (brew, nvm) + module iteration with optional subset args
 - `lib/common.sh` — shared helpers (`link`, `ensure_brew`, logging) sourced by every module installer
+- `git/` — global `.gitconfig` (identity, `init.defaultBranch`, `push.autoSetupRemote`, LFS filters)
 - `tmux/` — tmux config + Brewfile (`brew "tmux"`); installs TPM
 - `zsh/` — zshrc + powerlevel10k config + aliases; installs oh-my-zsh, p10k, zsh-autosuggestions
 - `nvim/` — NvChad-based neovim config (lazy.nvim self-bootstraps)
 - `python/` — uv config + Python versions to install
 - `npm/` — `.npmrc` (nvm itself is bootstrapped by the top-level installer)
 - `iterm/` — iTerm2 prefs + Brewfile (cask `iterm2`, Meslo Nerd Font); install.sh points iTerm at this folder
-- `vscode/` — settings, keybindings, and an `extensions.txt` list installed via the `code` CLI (macOS only)
+- `vscode/` — Brewfile (cask `visual-studio-code`) + settings, keybindings, and an `extensions.txt` list installed via the `code` CLI (macOS only)
 - `claude/` — Claude Code global config + Brewfile (`rtk`, `nowplaying-cli`). The `enabledPlugins` list in `settings.json` only toggles plugins on — re-register each marketplace with `/plugin marketplace add ...` inside Claude Code on a fresh machine before they activate.
+- `brave/` — Brave browser (cask); extensions are installed manually from the Web Store
+- `interceptor/` — [Interceptor](https://github.com/Hacker-Valley-Media/Interceptor) CLI + daemon that drives a signed-in browser from the command line (browser-only install). Not in brew — `install.sh` downloads the pinned signed pkg, verifies checksum + notarization, `sudo installer`s it, and adopts its skill packs into `~/.claude/skills`. Loading the browser extension is a manual step (see the module README).
 
 ## Adding a new module
 

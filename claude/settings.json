@@ -38,7 +38,7 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "AskUserQuestion",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
@@ -53,7 +53,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -f ~/.claude/no-media ] || nowplaying-cli play"
+            "command": "[ -f ~/.claude/no-media ] || nowplaying-cli pause"
           }
         ]
       }
@@ -65,6 +65,15 @@
           {
             "type": "command",
             "command": "rtk hook claude"
+          }
+        ]
+      },
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f ~/.claude/no-media ] || nowplaying-cli pause"
           }
         ]
       }
@@ -87,8 +96,20 @@
     "security-guidance@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
     "claude-mem@thedotmack": true,
-    "pyright-lsp@claude-plugins-official": true
+    "pyright-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "plugin-dev@claude-plugins-official": true
   },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  },
+  "theme": "dark",
   "remoteControlAtStartup": false,
   "_comment": "media hooks require: brew install nowplaying-cli"
 }

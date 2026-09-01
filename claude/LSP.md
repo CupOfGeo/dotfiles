@@ -1,5 +1,12 @@
 # Code Intelligence
 
+IMPORTANT: The `LSP` tool is deferred in most sessions.
+ALways Prefer LSP over Grep/Glob/Read for code navigation!!!
+At the start of ANY
+code-navigation or refactoring task, load it FIRST with:
+  ToolSearch query "select:LSP"
+before falling back to Grep/Glob/Read for navigation.
+
 Prefer LSP over Grep/Glob/Read for code navigation:
 - `goToDefinition` / `goToImplementation` to jump to source
 - `findReferences` to see all usages across the codebase
