@@ -34,6 +34,7 @@ The top-level installer bootstraps shared prerequisites (Homebrew, nvm + Node LT
 
 - `install.sh` — orchestrator: shared bootstrap (brew, nvm) + module iteration with optional subset args
 - `lib/common.sh` — shared helpers (`link`, `ensure_brew`, logging) sourced by every module installer
+- `git/` — global `.gitconfig` (identity, `init.defaultBranch`, `push.autoSetupRemote`, LFS filters)
 - `tmux/` — tmux config + Brewfile (`brew "tmux"`); installs TPM
 - `zsh/` — zshrc + powerlevel10k config + aliases; installs oh-my-zsh, p10k, zsh-autosuggestions
 - `nvim/` — NvChad-based neovim config (lazy.nvim self-bootstraps)
