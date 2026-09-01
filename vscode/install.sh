@@ -8,6 +8,8 @@ source "$DOTFILES/lib/common.sh"
 require_macos
 log_step "Installing vscode module"
 
+brew_bundle_if_present "$MODULE_DIR"
+
 VSCODE_USER="$HOME/Library/Application Support/Code/User"
 link "$MODULE_DIR/settings.json"    "$VSCODE_USER/settings.json"
 link "$MODULE_DIR/keybindings.json" "$VSCODE_USER/keybindings.json"
