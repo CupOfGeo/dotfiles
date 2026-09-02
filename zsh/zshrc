@@ -1,5 +1,5 @@
 # machine-local secrets, not tracked in dotfiles
-[ -f ~/scripts/.secrets ] && source ~/scripts/.secrets
+[ -f ~/.secrets ] && source ~/.secrets
 source $HOME/dotfiles/zsh/aliases.sh
 
 # Auto-color each iTerm2 tab (runs before p10k instant prompt).

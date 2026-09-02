@@ -59,4 +59,4 @@ The top-level installer bootstraps shared prerequisites (Homebrew, nvm + Node LT
 
 ## Secrets
 
-Secrets never live in this repo. The `.zshrc` sources `~/scripts/.secrets`, which lives outside dotfiles and is not tracked here.
+Secrets never live in this repo. The `.zshrc` sources `~/.secrets`, which lives outside dotfiles and is not tracked here.
