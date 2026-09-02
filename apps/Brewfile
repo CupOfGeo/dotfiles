@@ -5,6 +5,10 @@
 # it also drops the CLI wrapper at /usr/local/bin/tailscale.
 cask "tailscale-app"
 
+# Browser. Extensions are installed manually from the Web Store; interceptor's
+# unpacked extension also loads manually (see interceptor/README.md).
+cask "brave-browser"
+
 # Container runtime: colima runs the Linux VM + dockerd; docker/docker-compose
 # are just the CLIs pointed at it. Start with `colima start`.
 brew "colima"
