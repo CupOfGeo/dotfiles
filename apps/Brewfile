@@ -1,0 +1,16 @@
+# Simple "just install it" apps and tools. Anything needing real setup
+# (symlinks, defaults writes, plugins) gets its own module instead.
+
+# Mesh VPN. The cask installs Tailscale's official standalone .pkg (GUI app);
+# it also drops the CLI wrapper at /usr/local/bin/tailscale.
+cask "tailscale-app"
+
+# Container runtime: colima runs the Linux VM + dockerd; docker/docker-compose
+# are just the CLIs pointed at it. Start with `colima start`.
+brew "colima"
+brew "docker"
+brew "docker-compose"
+
+# grep-like code search
+brew "ack"
+
