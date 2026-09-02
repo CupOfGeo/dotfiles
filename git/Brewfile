@@ -1,0 +1,2 @@
+# gitconfig declares required LFS filters, so the binary must exist.
+brew "git-lfs"

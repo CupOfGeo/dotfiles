@@ -7,6 +7,8 @@ source "$DOTFILES/lib/common.sh"
 
 log_step "Installing git module"
 
+brew_bundle_if_present "$MODULE_DIR"
+
 link "$MODULE_DIR/gitconfig" "$HOME/.gitconfig"
 
 log_step "git module installed"
