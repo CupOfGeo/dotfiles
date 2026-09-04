@@ -4,7 +4,7 @@ set -euo pipefail
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DOTFILES/lib/common.sh"
 
-ALL_MODULES=(git claude zsh tmux nvim python npm iterm vscode interceptor apps)
+ALL_MODULES=(git ssh claude zsh tmux nvim python npm iterm vscode interceptor apps)
 
 usage() {
   cat <<EOF

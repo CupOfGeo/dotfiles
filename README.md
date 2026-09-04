@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal config + setup scripts, organized as independent modules.
+My config + setup scripts, organized as independent modules.
 
 ## Install on a fresh machine
 
@@ -13,6 +13,9 @@ git clone <this-repo> ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```
+
+> **Not me?** Change the git identity in `git/gitconfig` and clear
+> `ssh/authorized_keys` before installing — see [Personal data](#personal-data).
 
 Then open tmux and press `prefix + I` to fetch plugins via TPM.
 
@@ -35,6 +38,7 @@ The top-level installer bootstraps shared prerequisites (Homebrew, nvm + Node LT
 - `install.sh` — orchestrator: shared bootstrap (brew, nvm) + module iteration with optional subset args
 - `lib/common.sh` — shared helpers (`link`, `ensure_brew`, logging) sourced by every module installer
 - `git/` — global `.gitconfig` (identity, `init.defaultBranch`, `push.autoSetupRemote`, LFS filters) + Brewfile (`git-lfs`, required by the LFS filters)
+- `ssh/` — client `~/.ssh/config` + SSH **server** setup so my other machines can SSH in over the tailnet (key-only auth, Remote Login, `sshd_config.d` drop-in copied root-owned). Public keys only; private keys never enter the repo. See `ssh/README.md`
 - `apps/` — Brewfile of simple "just install it" tools (tailscale, brave, colima/docker, ack); registers colima as a login service
 - `tmux/` — tmux config + Brewfile (`brew "tmux"`); installs TPM
 - `zsh/` — zshrc + powerlevel10k config + aliases; installs oh-my-zsh, p10k, zsh-autosuggestions
@@ -59,4 +63,48 @@ The top-level installer bootstraps shared prerequisites (Homebrew, nvm + Node LT
 
 ## Secrets
 
-Secrets never live in this repo. The `.zshrc` sources `~/.secrets`, which lives outside dotfiles and is not tracked here.
+I keep secrets out of this repo entirely. My `.zshrc` sources `~/.secrets`, which lives outside dotfiles and isn't tracked here.
+
+## Personal data
+
+I set this repo up for myself, not as a neutral template. Two tracked files hold
+my personal data, and if you're not me you'll want to change both before
+installing:
+
+| File | Holds | If you're not me |
+| --- | --- | --- |
+| `git/gitconfig` | my `user.name` / `user.email` | Edit the `[user]` block, or your commits get authored as me |
+| `ssh/authorized_keys` | my machines' public keys | Clear it and add your own, or my keys get a login on your machine |
+
+I track both on purpose — having them here is what makes a fresh machine work
+immediately, which is the case I actually optimize for. But the two failure
+modes aren't equally visible, so I guard them differently.
+
+A wrong git identity announces itself: I'd spot it in `git log` and fix it with
+`git commit --amend`. A wrong `authorized_keys` is silent, so `ssh/install.sh`
+prints exactly whose keys it's about to authorize and waits for confirmation
+before installing them. A README warning gets skimmed; a prompt shows up at the
+moment it matters.
+
+```bash
+# If you're not me:
+git config --file git/gitconfig user.name  "Your Name"
+git config --file git/gitconfig user.email "you@example.com"
+: > ssh/authorized_keys        # then add your own public keys
+```
+
+`~/.gitconfig` is a symlink to `git/gitconfig`, so `git config --global` writes
+**through it into the tracked file** — an accidental `--global` write shows up as
+a repo diff.
+
+### Files kept outside the repo
+
+| File | Holds | Created by |
+| --- | --- | --- |
+| `~/.secrets` | env vars, tokens — sourced by `.zshrc` | me, by hand |
+| `~/.ssh/config.local` | my SSH host entries (tailnet, work, jump hosts) | `ssh/install.sh` |
+| `~/.ssh/id_ed25519` | this machine's private key | `ssh/install.sh` |
+
+`.gitignore` lists `id_ed25519` / `id_rsa` and friends explicitly: the older
+`*_key*` / `*.key` / `*.pem` patterns do **not** match OpenSSH's default key
+filenames, so a private key dropped in the repo would otherwise be committable.

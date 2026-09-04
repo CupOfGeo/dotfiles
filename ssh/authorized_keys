@@ -1,0 +1,27 @@
+# Public keys allowed to SSH into this machine. Symlinked to
+# ~/.ssh/authorized_keys by ssh/install.sh.
+#
+# I track this file on purpose. Public keys are not secrets -- a public key is a
+# lock, not a key -- and keeping mine here is what lets a fresh machine be
+# reachable from my other machines right after install.
+#
+# If you're not me: every key below would get a login on your machine.
+# ssh/install.sh prints them and asks before installing, so read that list.
+# Clear this file and add your own keys instead.
+#
+# To authorize a machine, run this ON THAT MACHINE:
+#     cat ~/.ssh/id_ed25519.pub        # generate first if it has none:
+#                                      #   ssh-keygen -t ed25519
+# then append the single line it prints here and re-run ssh/install.sh.
+#
+# Give every key a trailing comment naming its machine -- that comment is what
+# install.sh shows at the prompt, and an unlabelled key is one I can't audit.
+#
+# Format (one per line):
+#   ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAA... me@my-laptop
+
+# macbook-pro
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwMw6WrwkKTyl7/qzZTdYKWHt6SjGJG3ORdY1TwRlkY george@macbook-pro
+
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICH2IPxtHVFClebqOukI7CX/AjfrwLJwmxMgQ1bmN6A home-mac@geo-air

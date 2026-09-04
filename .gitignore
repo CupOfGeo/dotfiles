@@ -22,3 +22,22 @@
 
 # Machine-local Claude Code overrides
 claude/settings.local.json
+
+# SSH private keys. The existing *_key*/*.key/*.pem patterns above do NOT match
+# an OpenSSH default key name like `id_ed25519` (no extension, no "key" in it),
+# so match them explicitly.
+#
+# ssh/authorized_keys IS tracked (the trailing negation undoes the *_key* match
+# above). Public keys are not secrets, and keeping them here is what makes a
+# fresh machine reachable immediately. ssh/install.sh shows whose keys it is
+# about to authorize and asks before installing them.
+id_dsa
+id_rsa
+id_ecdsa
+id_ed25519
+id_ed25519_sk
+*_ed25519
+*_ecdsa
+!*.pub
+!ssh/authorized_keys
+

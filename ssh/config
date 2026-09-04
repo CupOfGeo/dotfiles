@@ -1,0 +1,37 @@
+# Client config -> ~/.ssh/config (symlink managed by ssh/install.sh).
+#
+# Includes come first on purpose: OpenSSH uses the FIRST value it obtains for
+# any given keyword, so anything matched by an include below wins over the
+# `Host *` defaults at the bottom of this file.
+
+# Untracked, machine-local overrides. Put anything host-specific or private
+# here (work hosts, jump boxes, one-off IdentityFile lines). Never tracked.
+Include ~/.ssh/config.local
+
+# Written by colima when it starts its VM.
+Include ~/.colima/ssh_config
+
+# --- Git hosting -------------------------------------------------------------
+
+Host github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+
+# --- Defaults ----------------------------------------------------------------
+
+Host *
+  # Load keys into the agent on first use and pull passphrases from the
+  # macOS Keychain, so an encrypted key is unlocked once per boot.
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+
+  # Reuse one TCP connection for repeated sessions to the same host.
+  ControlMaster auto
+  ControlPath ~/.ssh/control/%C
+  ControlPersist 5m
+
+  # Notice a dead link in ~1 min instead of hanging.
+  ServerAliveInterval 20
+  ServerAliveCountMax 3

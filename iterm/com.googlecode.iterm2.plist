@@ -1000,7 +1000,7 @@
 			<key>Window Type</key>
 			<integer>2</integer>
 			<key>Working Directory</key>
-			<string>/Users/georgemazzeo</string>
+			<string>~</string>
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
@@ -1636,7 +1636,7 @@
 			<key>Window Type</key>
 			<integer>2</integer>
 			<key>Working Directory</key>
-			<string>/Users/georgemazzeo</string>
+			<string>~</string>
 		</dict>
 	</array>
 	<key>PointerActions</key>
