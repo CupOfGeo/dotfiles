@@ -1,7 +1,10 @@
 {
   "env": {
-    "ENABLE_LSP_TOOL": "1"
+    "ENABLE_LSP_TOOL": "1",
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787",
+    "ENABLE_TOOL_SEARCH": "true"
   },
+  "model": "fable[1m]",
   "hooks": {
     "Stop": [
       {
@@ -110,7 +113,11 @@
       }
     }
   },
+  "tui": "fullscreen",
   "theme": "dark",
+  "permissions": {
+    "defaultMode": "auto"
+  },
   "remoteControlAtStartup": false,
   "_comment": "media hooks require: brew install nowplaying-cli"
 }

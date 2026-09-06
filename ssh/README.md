@@ -160,8 +160,14 @@ Beyond that:
 
 - **Default posture:** with no port-22 forward on my router, this machine is
   reachable only from the LAN and the tailnet. That is usually enough.
-- **Stricter:** to answer *only* on the Tailscale interface, that has to be a
-  packet-filter rule, since `ListenAddress` is unavailable. Sketch:
+- **Installed:** the drop-in's `AllowUsers` line carries a source-address
+  filter (`me@100.64.0.0/10 me@fd7a:115c:a1e0::/48`, Tailscale's IPv4 and
+  IPv6 ranges). sshd checks it per connection, so a LAN or public-wifi client
+  is refused regardless of key. The port still answers, but nothing can log in
+  through it from outside the tailnet.
+- **Stricter still:** to stop the port *answering* anywhere but the Tailscale
+  interface, that has to be a packet-filter rule, since `ListenAddress` is
+  unavailable. Sketch:
 
   ```
   # /etc/pf.anchors/dotfiles.ssh

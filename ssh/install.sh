@@ -132,7 +132,7 @@ fi
 # server's config. Copy it root-owned instead.
 log_step "Installing sshd drop-in (requires sudo)"
 tmp="$(mktemp)"
-sed "s/^AllowUsers .*/AllowUsers $(whoami)/" \
+sed "s/__INSTALL_USER__/$(whoami)/g" \
   "$MODULE_DIR/sshd_config.d/010-dotfiles.conf" > "$tmp"
 
 # Stash whatever is live so a bad config can be rolled back.

@@ -132,4 +132,5 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 # export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"  # moved to remote dev DB on homeserver
 
 [[ -r ~/dotfiles/claude/media-hook.sh ]] && source ~/dotfiles/claude/media-hook.sh
+# Route `claude` through the PII-redacting proxy (fail-closed; `claude-raw` bypasses)
 export ENABLE_LSP_TOOL=1
