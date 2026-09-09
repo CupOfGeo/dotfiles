@@ -4,6 +4,8 @@ source $HOME/dotfiles/zsh/aliases.sh
 
 # Auto-color each iTerm2 tab (runs before p10k instant prompt).
 [[ -r ~/dotfiles/iterm/tab-color.sh ]] && source ~/dotfiles/iterm/tab-color.sh
+# Tint the background while ssh is running.
+[[ -r ~/dotfiles/iterm/ssh-color.sh ]] && source ~/dotfiles/iterm/ssh-color.sh
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.

@@ -8,6 +8,10 @@
 # here (work hosts, jump boxes, one-off IdentityFile lines). Never tracked.
 Include ~/.ssh/config.local
 
+# Per-machine host entries owned by OTHER repos (e.g. infra-config links its
+# homelab hosts to ~/.ssh/config.d/homelab.conf). Tracked there, not here.
+Include ~/.ssh/config.d/*.conf
+
 # Written by colima when it starts its VM.
 Include ~/.colima/ssh_config
 
