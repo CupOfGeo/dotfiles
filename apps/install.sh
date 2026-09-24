@@ -14,6 +14,11 @@ brew_bundle_if_present "$MODULE_DIR"
 link "$(brew --prefix)/opt/docker-compose/bin/docker-compose" \
      "$HOME/.docker/cli-plugins/docker-compose"
 
+# Colima VM settings (cpu/memory/disk). Link before the service starts so a
+# fresh machine boots the VM with these values; resource changes need a
+# `colima stop` + `colima start` to take effect.
+link "$MODULE_DIR/colima.yaml" "$HOME/.colima/default/colima.yaml"
+
 # Start the colima docker VM at login. Guard on the loaded launchd job, not
 # `brew services list` — it reports colima "stopped" because `colima start`
 # exits once the VM is up, and re-bootstrapping a loaded job fails.

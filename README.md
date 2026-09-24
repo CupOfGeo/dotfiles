@@ -39,7 +39,7 @@ The top-level installer bootstraps shared prerequisites (Homebrew, nvm + Node LT
 - `lib/common.sh` — shared helpers (`link`, `ensure_brew`, logging) sourced by every module installer
 - `git/` — global `.gitconfig` (identity, `init.defaultBranch`, `push.autoSetupRemote`, LFS filters) + Brewfile (`git-lfs`, required by the LFS filters)
 - `ssh/` — client `~/.ssh/config` + SSH **server** setup so my other machines can SSH in over the tailnet (key-only auth, Remote Login, `sshd_config.d` drop-in copied root-owned). Public keys only; private keys never enter the repo. See `ssh/README.md`
-- `apps/` — Brewfile of simple "just install it" tools (tailscale, brave, colima/docker, ack); registers colima as a login service
+- `apps/` — Brewfile of simple "just install it" tools (tailscale, brave, colima/docker, ack); registers colima as a login service and symlinks its VM config (`colima.yaml`: cpu/memory/disk)
 - `tmux/` — tmux config + Brewfile (`brew "tmux"`); installs TPM
 - `zsh/` — zshrc + powerlevel10k config + aliases; installs oh-my-zsh, p10k, zsh-autosuggestions
 - `nvim/` — NvChad-based neovim config (lazy.nvim self-bootstraps)

@@ -4,7 +4,9 @@
     "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787",
     "ENABLE_TOOL_SEARCH": "true"
   },
-  "model": "fable[1m]",
+  "permissions": {
+    "defaultMode": "auto"
+  },
   "hooks": {
     "Stop": [
       {
@@ -115,9 +117,15 @@
   },
   "tui": "fullscreen",
   "theme": "dark",
-  "permissions": {
-    "defaultMode": "auto"
-  },
   "remoteControlAtStartup": false,
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(tofu apply:*) in opentofu_repo/ — Blind Apply / Protected-Scope IaC Apply risk given live GCP resources and unprotected default branch",
+      "Bash(git push --force*) on origin (public repo, no branch protection listed)"
+    ],
+    "environment": [
+    ]
+  },
   "_comment": "media hooks require: brew install nowplaying-cli"
 }
