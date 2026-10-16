@@ -105,13 +105,21 @@
     "typescript-lsp@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
     "plugin-dev@claude-plugins-official": true,
-    "jdtls-lsp@claude-plugins-official": true
+    "jdtls-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
       "source": {
         "source": "github",
         "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
       }
     }
   },
@@ -124,8 +132,7 @@
       "Bash(tofu apply:*) in opentofu_repo/ — Blind Apply / Protected-Scope IaC Apply risk given live GCP resources and unprotected default branch",
       "Bash(git push --force*) on origin (public repo, no branch protection listed)"
     ],
-    "environment": [
-    ]
+    "environment": []
   },
   "_comment": "media hooks require: brew install nowplaying-cli"
 }
