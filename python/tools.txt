@@ -1,0 +1,2 @@
+# Global CLI tools, installed with `uv tool install` (isolated venv each, on PATH via ~/.local/bin).
+vastai

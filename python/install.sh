@@ -24,6 +24,15 @@ if [[ -f "$MODULE_DIR/versions.txt" ]]; then
   done < "$MODULE_DIR/versions.txt"
 fi
 
+if [[ -f "$MODULE_DIR/tools.txt" ]]; then
+  log_step "Installing global tools via uv"
+  while IFS= read -r tool; do
+    [[ -z "$tool" ]] && continue
+    case "$tool" in \#*) continue ;; esac
+    uv tool install "$tool"
+  done < "$MODULE_DIR/tools.txt"
+fi
+
 link "$MODULE_DIR/uv.toml" "$HOME/.config/uv/uv.toml"
 
 log_step "python module installed"

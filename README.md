@@ -43,7 +43,7 @@ The top-level installer bootstraps shared prerequisites (Homebrew, nvm + Node LT
 - `tmux/` — tmux config + Brewfile (`brew "tmux"`); installs TPM
 - `zsh/` — zshrc + powerlevel10k config + aliases; installs oh-my-zsh, p10k, zsh-autosuggestions
 - `nvim/` — NvChad-based neovim config (lazy.nvim self-bootstraps)
-- `python/` — uv config + Python versions to install
+- `python/` — uv config + Python versions to install + global CLI tools (`tools.txt`, via `uv tool install`)
 - `npm/` — `.npmrc` (nvm itself is bootstrapped by the top-level installer)
 - `iterm/` — iTerm2 prefs + Brewfile (cask `iterm2`, Meslo Nerd Font); install.sh points iTerm at this folder
 - `vscode/` — Brewfile (cask `visual-studio-code`) + settings, keybindings, and an `extensions.txt` list installed via the `code` CLI (macOS only)

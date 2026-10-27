@@ -28,6 +28,8 @@
 	<true/>
 	<key>AlternateMouseScroll</key>
 	<true/>
+	<key>ClaudeCodeWorkgroupUpsellSuppressed</key>
+	<true/>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>filename</key>
@@ -1618,7 +1620,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.10000000000000001</real>
+			<real>0.15340241514360317</real>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
