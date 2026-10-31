@@ -16,6 +16,7 @@ link "$MODULE_DIR/RTK.md"        "$HOME/.claude/RTK.md"
 
 # Personal skills (on-demand, not loaded every session).
 link "$MODULE_DIR/skills/slack"  "$HOME/.claude/skills/slack"
+link "$MODULE_DIR/skills/fj"     "$HOME/.claude/skills/fj"
 
 # MCP servers are registered via `claude mcp add -s user`, not a symlinked
 # .mcp.json — Claude Code only reads .mcp.json from a project's cwd (project

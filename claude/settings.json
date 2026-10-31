@@ -1,7 +1,6 @@
 {
   "env": {
     "ENABLE_LSP_TOOL": "1",
-    "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787",
     "ENABLE_TOOL_SEARCH": "true"
   },
   "permissions": {
@@ -106,8 +105,9 @@
     "skill-creator@claude-plugins-official": true,
     "plugin-dev@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
-    "ponytail@ponytail": true
+    "superpowers@claude-plugins-official": false,
+    "ponytail@ponytail": true,
+    "web-navigation@shopping-local": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -120,6 +120,12 @@
       "source": {
         "source": "github",
         "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "shopping-local": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/georgemazzeo/Code/shopping/shopping-plugin"
       }
     }
   },
