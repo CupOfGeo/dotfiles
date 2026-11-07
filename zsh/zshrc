@@ -92,6 +92,7 @@ plugins=(git zsh-autosuggestions virtualenv)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status virtualenv)
 
 source $ZSH/oh-my-zsh.sh
+HISTSIZE=120000 SAVEHIST=100000  # after omz, which sets 50000/10000
 
 # User configuration
 

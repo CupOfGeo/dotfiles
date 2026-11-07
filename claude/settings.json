@@ -53,6 +53,15 @@
             "command": "[ -f ~/.claude/no-media ] || nowplaying-cli play"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '\": \\(now|floor):0;\" + (.tool_input.command | gsub(\"(?<p>^|&& |; |\\\\| )rtk \"; \"\\(.p)\") | gsub(\"\\n\"; \"\\\\\\n\"))' >> ~/.zsh_history"
+          }
+        ]
       }
     ],
     "PermissionRequest": [
