@@ -1,0 +1,6 @@
+port = 8787
+upstream = "http://127.0.0.1:8788"   # headroom (apps/ai.headroom.proxy.plist); "https://api.anthropic.com" to bypass
+categories = ["account_number", "secret"]
+unredact = true
+model = "OpenMed/privacy-filter-mlx-8bit"
+log_file = "/opt/homebrew/var/log/redact-proxy.log"
