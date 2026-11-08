@@ -1,2 +1,4 @@
 # Global CLI tools, installed with `uv tool install` (isolated venv each, on PATH via ~/.local/bin).
 vastai
+# midclt: TrueNAS API client (replaces REST curl calls). Pin tag to the NAS version.
+truenas_api_client @ git+https://github.com/truenas/api_client.git@TS-25.10.8
